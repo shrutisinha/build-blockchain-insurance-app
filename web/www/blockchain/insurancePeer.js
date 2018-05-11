@@ -108,20 +108,20 @@ export async function fileClaim(claim) {
   }
 }
 
-export async function processClaim(contractUuid, uuid, status, reimbursable) {
-  if (!isReady()) {
-    return;
-  }
-  try {
-    const successResult = await invoke('claim_process', { contractUuid, uuid, status, reimbursable });
-    if (successResult) {
-      throw new Error(successResult);
-    }
-    return successResult;
-  } catch (e) {
-    throw wrapError(`Error processing claim: ${e.message}`, e);
-  }
-}
+// export async function processClaim(contractUuid, uuid, status, reimbursable) {
+//   if (!isReady()) {
+//     return;
+//   }
+//   try {
+//     const successResult = await invoke('claim_process', { contractUuid, uuid, status, reimbursable });
+//     if (successResult) {
+//       throw new Error(successResult);
+//     }
+//     return successResult;
+//   } catch (e) {
+//     throw wrapError(`Error processing claim: ${e.message}`, e);
+//   }
+// }
 
 export async function authenticateUser(username, password) {
   if (!isReady()) {

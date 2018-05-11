@@ -3,19 +3,19 @@
 import * as PoliceShopActionType from './policeActionTypes';
 import * as Api from '../api';
 
-export function loadTheftClaims() {
-  return async dispatch => {
-    let theftClaims;
-    try {
-      theftClaims = await Api.listTheftClaims();
-    } catch (e) {
-      console.log(e);
-    }
-    if (Array.isArray(theftClaims)) {
-      dispatch(loadTheftClaimsSuccess(theftClaims));
-    }
-  };
-}
+// export function loadTheftClaims() {
+//   return async dispatch => {
+//     let theftClaims;
+//     try {
+//       theftClaims = await Api.listTheftClaims();
+//     } catch (e) {
+//       console.log(e);
+//     }
+//     if (Array.isArray(theftClaims)) {
+//       dispatch(loadTheftClaimsSuccess(theftClaims));
+//     }
+//   };
+// }
 
 function loadTheftClaimsSuccess(theftClaims) {
   return {

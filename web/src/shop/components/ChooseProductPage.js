@@ -59,14 +59,14 @@ class ChooseProductPage extends React.Component {
     let messageAtTop;
     switch (this.props.shopType) {
       case 'bikes':
-        messageAtTop = <FormattedMessage id='Buy a Bike' />;
+        messageAtTop = <FormattedMessage id='Search For User' />;
         break;
-      case 'smart-phones':
-        messageAtTop = <FormattedMessage id='Buy a Smart Phone' />;
-        break;
-      case 'skis':
-        messageAtTop = <FormattedMessage id='Buy a Pair of Skis' />;
-        break;
+      // case 'smart-phones':
+      //   messageAtTop = <FormattedMessage id='Buy a Smart Phone' />;
+      //   break;
+      // case 'skis':
+      //   messageAtTop = <FormattedMessage id='Buy a Pair of Skis' />;
+      //   break;
     }
     let { intl, products } = this.props;
     let { productInfo, redirectToNext } = this.state;

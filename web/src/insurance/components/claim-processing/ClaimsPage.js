@@ -30,37 +30,37 @@ class ClaimsPage extends React.Component {
   }
 
   render() {
-    const { loading, intl, claimProcessingActions, claims } = this.props;
+    // const { loading, intl, claimProcessingActions, claims } = this.props;
 
-    const cards = Array.isArray(claims) ? claims
-      .sort((a, b) => a.uuid.localeCompare(b.uuid))
-      .map(claim => {
-        const repair = () => {
-          claimProcessingActions.processClaim(
-            claim.contractUuid, claim.uuid, 'R', 0);
-        };
-        const reimburse = (reimbursable) => {
-          claimProcessingActions.processClaim(
-            claim.contractUuid, claim.uuid, 'F', reimbursable);
-        };
-        const reject = () => {
-          claimProcessingActions.processClaim(
-            claim.contractUuid, claim.uuid, 'J', 0);
-        };
-        return (
-          <ClaimComponent key={claim.uuid} claim={claim}
-            onRepair={repair}
-            onReimburse={reimburse}
-            onReject={reject} />
-        );
-      }) : null;
-    const claimsDisplay = ((Array.isArray(cards) && cards.length > 0) ||
-      cards === null) ? cards :
-      (
-        <div className='ibm-col-5-5 ibm-col-medium-6-6'>
-          <FormattedMessage id='No outstanding claims.' />
-        </div>
-      );
+    // const cards = Array.isArray(claims) ? claims
+    //   .sort((a, b) => a.uuid.localeCompare(b.uuid))
+    //   .map(claim => {
+    //     const repair = () => {
+    //       claimProcessingActions.processClaim(
+    //         claim.contractUuid, claim.uuid, 'R', 0);
+    //     };
+    //     const reimburse = (reimbursable) => {
+    //       claimProcessingActions.processClaim(
+    //         claim.contractUuid, claim.uuid, 'F', reimbursable);
+    //     };
+    //     const reject = () => {
+    //       claimProcessingActions.processClaim(
+    //         claim.contractUuid, claim.uuid, 'J', 0);
+    //     };
+    //     return (
+    //       <ClaimComponent key={claim.uuid} claim={claim}
+    //         onRepair={repair}
+    //         onReimburse={reimburse}
+    //         onReject={reject} />
+    //     );
+    //   }) : null;
+    // const claimsDisplay = ((Array.isArray(cards) && cards.length > 0) ||
+    //   cards === null) ? cards :
+    //   (
+    //     <div className='ibm-col-5-5 ibm-col-medium-6-6'>
+    //       <FormattedMessage id='No outstanding claims.' />
+    //     </div>
+    //   );
 
     return (
       <Loading hidden={!loading}

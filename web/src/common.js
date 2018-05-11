@@ -17,7 +17,7 @@ window.digitalData = {
     "pageInfo": {
       "language": "en-US",
       "publishDate": "2017-02-28",
-      "publisher": "IBM Corporation",
+      "publisher": "ZeMoSo Corporation",
       "version": "v18",
       "pageID": "None",
       "ibm": {

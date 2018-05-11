@@ -1,11 +1,11 @@
 doctype html
 html(lang='en')
   head
-    title #{ __('Blockchain for Insurance') }#{!title ? '' : ' -' + title }
+    title #{ __('Blockchain for Healthcare') }#{!title ? '' : ' -' + title }
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    meta(name='og:title' content='IBM Blockchain for Insurance')
+    meta(name='og:title' content='ZeMoSo Blockchain for Healthcare')
     script(src='/js/northstar.js')
     script(src='/js/northstar-forms.js')
     script(src='/js/common.bundle.js')
@@ -21,39 +21,39 @@ html(lang='en')
           ul(role='toolbar', aria-labelledby='ibm-masthead')
         #ibm-universal-nav
           #ibm-home
-            a(href='/') IBM&reg;
+            a(href='/') ZeMoSo
           ul#ibm-menu-links(role='toolbar', aria-label='Site map')
     #ibm-content-wrapper
       header
         .ibm-sitenav-menu-container
           .ibm-sitenav-menu-name
-            a(href='/') #{__('Blockchain for Insurance')}
+            a(href='/') #{__('Blockchain for Healthcare')}
           .ibm-sitenav-menu-list
             ul(role='menubar')
               li(role='presentation', class=(homeActive ? 'ibm-highlight' : ''))
                 a(role='menuitem', href='/') #{ __('Home') }
               li.ibm-haschildlist(role='presentation', class=(shopActive ? 'ibm-highlight' : ''))
-                span(role='menuitem') #{ __('Shop') }
+                span(role='menuitem') #{ __('Hospital') }
                 ul(role='menu')
                   li(role='presentation', class=(bikesActive ? 'ibm-highlight' : ''))
-                    a(role='menuitem', href='/shop/bikes') #{ __('Bikes') }
-                  li(role='presentation', class=(smartPhonesActive ? 'ibm-highlight' : ''))
-                    a(role='menuitem', href='/shop/smart-phones') #{ __('Smart Phones') }
-                  li(role='presentation', class=(skisActive ? 'ibm-highlight' : ''))
-                    a(role='menuitem', href='/shop/skis') #{ __('Skis') }
+                  //-   a(role='menuitem', href='/shop/bikes') #{ __('Search') }
+                  //- li(role='presentation', class=(smartPhonesActive ? 'ibm-highlight' : ''))
+                  //-   a(role='menuitem', href='/shop/smart-phones') #{ __('Smart Phones') }
+                  //- li(role='presentation', class=(skisActive ? 'ibm-highlight' : ''))
+                  //-   a(role='menuitem', href='/shop/skis') #{ __('Skis') }
               li(role='presentation', class=(policeActive ? 'ibm-highlight' : ''))
                 a(role='menuitem', href='/police') #{ __('Police') }
               li(role='presentation', class=(repairShopActive ? 'ibm-highlight' : ''))
                 a(role='menuitem', href='/repair-shop') #{ __('Repair Service') }
               li.ibm-haschildlist(role='presentation', class=(insuranceActive ? 'ibm-highlight' : ''))
-                span(role='menuitem') #{ __('Insurance') }
+                span(role='menuitem') #{ __('Client App') }
                 ul(role='menu')
                   li(role='presentation', class=(selfServiceActive ? 'ibm-highlight' : ''))
-                    a(role='menuitem', href='/insurance/self-service') #{ __('Claim Self-Service') }
-                  li(role='presentation', class=(claimProcessingActive ? 'ibm-highlight' : ''))
-                    a(role='menuitem', href='/insurance/claim-processing') #{ __('Claim Processing') }
-                  li(role='presentation', class=(contractManagementActive ? 'ibm-highlight' : ''))
-                    a(role='menuitem', href='/insurance/contract-management') #{ __('Contract Management') }
+                    a(role='menuitem', href='/insurance/self-service') #{ __('Check Encounters') }
+                  //- li(role='presentation', class=(claimProcessingActive ? 'ibm-highlight' : ''))
+                  //-   a(role='menuitem', href='/insurance/claim-processing') #{ __('Claim Processing') }
+                  //- li(role='presentation', class=(contractManagementActive ? 'ibm-highlight' : ''))
+                  //-   a(role='menuitem', href='/insurance/contract-management') #{ __('Contract Management') }
       main(role='main', aria-labelledby='ibm-pagetitle-h1')
         #ibm-pcon
           #ibm-content

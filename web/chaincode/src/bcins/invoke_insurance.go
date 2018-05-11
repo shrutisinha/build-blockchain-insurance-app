@@ -351,124 +351,124 @@ func fileClaim(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	return shim.Success(nil)
 }
 
-func processClaim(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	if len(args) != 1 {
-		return shim.Error("Invalid argument count.")
-	}
+// func processClaim(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+// 	if len(args) != 1 {
+// 		return shim.Error("Invalid argument count.")
+// 	}
 
-	input := struct {
-		UUID         string      `json:"uuid"`
-		ContractUUID string      `json:"contract_uuid"`
-		Status       ClaimStatus `json:"status"`
-		Reimbursable float32     `json:"reimbursable"`
-	}{}
-	err := json.Unmarshal([]byte(args[0]), &input)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
+// 	input := struct {
+// 		UUID         string      `json:"uuid"`
+// 		ContractUUID string      `json:"contract_uuid"`
+// 		Status       ClaimStatus `json:"status"`
+// 		Reimbursable float32     `json:"reimbursable"`
+// 	}{}
+// 	err := json.Unmarshal([]byte(args[0]), &input)
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
 
-	claimKey, err := stub.CreateCompositeKey(prefixClaim, []string{input.ContractUUID, input.UUID})
-	if err != nil {
-		return shim.Error(err.Error())
-	}
+// 	claimKey, err := stub.CreateCompositeKey(prefixClaim, []string{input.ContractUUID, input.UUID})
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
 
-	claimBytes, _ := stub.GetState(claimKey)
-	if len(claimBytes) == 0 {
-		return shim.Error("Claim cannot be found.")
-	}
+// 	claimBytes, _ := stub.GetState(claimKey)
+// 	if len(claimBytes) == 0 {
+// 		return shim.Error("Claim cannot be found.")
+// 	}
 
-	claim := claim{}
-	err = json.Unmarshal(claimBytes, &claim)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
+// 	claim := claim{}
+// 	err = json.Unmarshal(claimBytes, &claim)
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
 
-	if !claim.IsTheft && claim.Status != ClaimStatusNew {
-		// Check if altering claim is allowed
-		return shim.Error("Cannot change the status of a non-new claim.")
-	}
-	if claim.IsTheft && claim.Status == ClaimStatusNew {
-		return shim.Error("Theft must first be confirmed by authorities.")
-	}
+// 	if !claim.IsTheft && claim.Status != ClaimStatusNew {
+// 		// Check if altering claim is allowed
+// 		return shim.Error("Cannot change the status of a non-new claim.")
+// 	}
+// 	if claim.IsTheft && claim.Status == ClaimStatusNew {
+// 		return shim.Error("Theft must first be confirmed by authorities.")
+// 	}
 
-	claim.Status = input.Status // Assigning requested status
-	switch input.Status {
-	case ClaimStatusRepair:
-		// Approve and create a repair order
-		if claim.IsTheft {
-			return shim.Error("Cannot repair stolen items.")
-		}
-		claim.Reimbursable = 0
+// 	claim.Status = input.Status // Assigning requested status
+// 	switch input.Status {
+// 	case ClaimStatusRepair:
+// 		// Approve and create a repair order
+// 		if claim.IsTheft {
+// 			return shim.Error("Cannot repair stolen items.")
+// 		}
+// 		claim.Reimbursable = 0
 
-		contract, err := claim.Contract(stub)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		// Create new repair order
-		repairOrder := repairOrder{
-			Item:         contract.Item,
-			ClaimUUID:    input.UUID,
-			ContractUUID: input.ContractUUID,
-			Ready:        false,
-		}
-		repairOrderKey, err := stub.CreateCompositeKey(prefixRepairOrder, []string{input.UUID})
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		repairOrderBytes, err := json.Marshal(repairOrder)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		err = stub.PutState(repairOrderKey, repairOrderBytes)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
+// 		contract, err := claim.Contract(stub)
+// 		if err != nil {
+// 			return shim.Error(err.Error())
+// 		}
+// 		// Create new repair order
+// 		repairOrder := repairOrder{
+// 			Item:         contract.Item,
+// 			ClaimUUID:    input.UUID,
+// 			ContractUUID: input.ContractUUID,
+// 			Ready:        false,
+// 		}
+// 		repairOrderKey, err := stub.CreateCompositeKey(prefixRepairOrder, []string{input.UUID})
+// 		if err != nil {
+// 			return shim.Error(err.Error())
+// 		}
+// 		repairOrderBytes, err := json.Marshal(repairOrder)
+// 		if err != nil {
+// 			return shim.Error(err.Error())
+// 		}
+// 		err = stub.PutState(repairOrderKey, repairOrderBytes)
+// 		if err != nil {
+// 			return shim.Error(err.Error())
+// 		}
 
-	case ClaimStatusReimbursement:
-		// Approve reimbursement of item, and add the sum
-		claim.Reimbursable = input.Reimbursable
-		// If theft was involved, mark the contract as void
-		if claim.IsTheft {
-			contract, err := claim.Contract(stub)
-			if err != nil {
-				return shim.Error(err.Error())
-			}
-			contract.Void = true
-			// Persist contract
-			contractKey, err := stub.CreateCompositeKey(
-				prefixContract, []string{contract.Username, claim.ContractUUID})
-			if err != nil {
-				return shim.Error(err.Error())
-			}
-			contractBytes, err := json.Marshal(contract)
-			if err != nil {
-				return shim.Error(err.Error())
-			}
-			err = stub.PutState(contractKey, contractBytes)
-			if err != nil {
-				return shim.Error(err.Error())
-			}
-		}
+// 	case ClaimStatusReimbursement:
+// 		// Approve reimbursement of item, and add the sum
+// 		claim.Reimbursable = input.Reimbursable
+// 		// If theft was involved, mark the contract as void
+// 		if claim.IsTheft {
+// 			contract, err := claim.Contract(stub)
+// 			if err != nil {
+// 				return shim.Error(err.Error())
+// 			}
+// 			contract.Void = true
+// 			// Persist contract
+// 			contractKey, err := stub.CreateCompositeKey(
+// 				prefixContract, []string{contract.Username, claim.ContractUUID})
+// 			if err != nil {
+// 				return shim.Error(err.Error())
+// 			}
+// 			contractBytes, err := json.Marshal(contract)
+// 			if err != nil {
+// 				return shim.Error(err.Error())
+// 			}
+// 			err = stub.PutState(contractKey, contractBytes)
+// 			if err != nil {
+// 				return shim.Error(err.Error())
+// 			}
+// 		}
 
-	case ClaimStatusRejected:
-		// Mark as rejected
-		claim.Reimbursable = 0
-	default:
-		return shim.Error("Unknown status change.")
-	}
+// 	case ClaimStatusRejected:
+// 		// Mark as rejected
+// 		claim.Reimbursable = 0
+// 	default:
+// 		return shim.Error("Unknown status change.")
+// 	}
 
-	// Persist claim
-	claimBytes, err = json.Marshal(claim)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-	err = stub.PutState(claimKey, claimBytes)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
+// 	// Persist claim
+// 	claimBytes, err = json.Marshal(claim)
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
+// 	err = stub.PutState(claimKey, claimBytes)
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
 
-	return shim.Success(nil)
-}
+// 	return shim.Success(nil)
+// }
 
 func authUser(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 1 {
@@ -529,6 +529,7 @@ func getUser(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 		Username  string `json:"username"`
 		FirstName string `json:"first_name"`
 		LastName  string `json:"last_name"`
+		Address   string `json:"address"`
 	}{}
 	err = json.Unmarshal(userBytes, &response)
 	if err != nil {

@@ -8,14 +8,14 @@ router.get('/', (req, res) => {
   res.render('police', { policeActive: true });
 });
 
-router.post('/api/claims', async (req, res) => {
-  try {
-    const theftClaims = await PolicePeer.listTheftClaims();
-    res.json(theftClaims || []);
-  } catch (e) {
-    res.json({ error: 'Error accessing blockchain.' });
-  }
-});
+// router.post('/api/claims', async (req, res) => {
+//   try {
+//     const theftClaims = await PolicePeer.listTheftClaims();
+//     res.json(theftClaims || []);
+//   } catch (e) {
+//     res.json({ error: 'Error accessing blockchain.' });
+//   }
+// });
 
 router.post('/api/process-claim', async (req, res) => {
   const { contractUuid, uuid, isTheft, fileReference } = req.body;

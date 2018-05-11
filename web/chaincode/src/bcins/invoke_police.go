@@ -2,80 +2,80 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-func listTheftClaims(stub shim.ChaincodeStubInterface, args []string) pb.Response {
-	results := []interface{}{}
-	resultsIterator, err := stub.GetStateByPartialCompositeKey(prefixClaim, []string{})
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-	defer resultsIterator.Close()
+// func listTheftClaims(stub shim.ChaincodeStubInterface, args []string) pb.Response {
+// 	// results := []interface{}{}
+// 	resultsIterator, err := stub.GetStateByPartialCompositeKey(prefixClaim, []string{})
+// 	if err != nil {
+// 		return shim.Error(err.Error())
+// 	}
+// 	defer resultsIterator.Close()
 
-	for resultsIterator.HasNext() {
-		kvResult, err := resultsIterator.Next()
-		if err != nil {
-			return shim.Error(err.Error())
-		}
+// 	// for resultsIterator.HasNext() {
+// 	// 	kvResult, err := resultsIterator.Next()
+// 	// 	if err != nil {
+// 	// 		return shim.Error(err.Error())
+// 	// 	}
 
-		claim := claim{}
-		err = json.Unmarshal(kvResult.Value, &claim)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		// Filter out the irrelevant claims
-		if !claim.IsTheft || claim.Status != ClaimStatusNew {
-			continue
-		}
+// 	// 	claim := claim{}
+// 	// 	err = json.Unmarshal(kvResult.Value, &claim)
+// 	// 	if err != nil {
+// 	// 		return shim.Error(err.Error())
+// 	// 	}
+// 	// 	// Filter out the irrelevant claims
+// 	// 	if !claim.IsTheft || claim.Status != ClaimStatusNew {
+// 	// 		continue
+// 	// 	}
 
-		contract, err := claim.Contract(stub)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		if contract == nil {
-			return shim.Error("Error acquiring contracts.")
-		}
+// 	// 	contract, err := claim.Contract(stub)
+// 	// 	if err != nil {
+// 	// 		return shim.Error(err.Error())
+// 	// 	}
+// 	// 	if contract == nil {
+// 	// 		return shim.Error("Error acquiring contracts.")
+// 	// 	}
 
-		result := struct {
-			UUID         string `json:"uuid"`
-			ContractUUID string `json:"contract_uuid"`
-			Item         item   `json:"item"`
-			Description  string `json:"description"`
-			Name         string `json:"name"`
-		}{}
+// 	// 	result := struct {
+// 	// 		UUID         string `json:"uuid"`
+// 	// 		ContractUUID string `json:"contract_uuid"`
+// 	// 		Item         item   `json:"item"`
+// 	// 		Description  string `json:"description"`
+// 	// 		Name         string `json:"name"`
+// 	// 	}{}
 
-		// Fetch key and set other properties
-		prefix, keyParts, err := stub.SplitCompositeKey(kvResult.Key)
-		if len(keyParts) < 2 {
-			result.UUID = prefix
-		} else {
-			result.ContractUUID = keyParts[0]
-			result.UUID = keyParts[1]
-		}
-		user, err := contract.User(stub)
-		if err != nil {
-			return shim.Error(err.Error())
-		}
-		if user == nil {
-			return shim.Error("Error acquiring user.")
-		}
+// 	// 	// Fetch key and set other properties
+// 	// 	prefix, keyParts, err := stub.SplitCompositeKey(kvResult.Key)
+// 	// 	if len(keyParts) < 2 {
+// 	// 		result.UUID = prefix
+// 	// 	} else {
+// 	// 		result.ContractUUID = keyParts[0]
+// 	// 		result.UUID = keyParts[1]
+// 	// 	}
+// 	// 	user, err := contract.User(stub)
+// 	// 	if err != nil {
+// 	// 		return shim.Error(err.Error())
+// 	// 	}
+// 	// 	if user == nil {
+// 	// 		return shim.Error("Error acquiring user.")
+// 	// 	}
 
-		result.Item = contract.Item
-		result.Description = claim.Description
-		result.Name = fmt.Sprintf("%s %s", user.FirstName, user.LastName)
+// 	// 	result.Item = fmt.Sprintf("contract.item")
+// 	// 	result.Description = claim.Description
+// 	// 	result.Name = fmt.Sprintf("%s %s", user.FirstName, user.LastName)
 
-		results = append(results, result)
-	}
+// 	// 	results = append(results, result)
+// 	// }
 
-	claimsAsBytes, err := json.Marshal(results)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-	return shim.Success(claimsAsBytes)
-}
+// 	// claimsAsBytes, err := json.Marshal(results)
+// 	// if err != nil {
+// 	// 	return shim.Error(err.Error())
+// 	// }
+// 	return shim.Success(nil)
+// }
 
 func processTheftClaim(stub shim.ChaincodeStubInterface, args []string) pb.Response {
 	if len(args) != 1 {

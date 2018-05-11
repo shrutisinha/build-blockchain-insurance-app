@@ -37,6 +37,7 @@ class ChooseInsurancePage extends React.Component {
         firstName: '',
         lastName: '',
         email: '',
+        address: '',
         startDate: 0,
         endDate: 0
       }
@@ -97,6 +98,9 @@ class ChooseInsurancePage extends React.Component {
         case this.refs.emailField:
           obj = { email: event.target.value };
           break;
+        case this.refs.addressField:
+          obj = { address: event.target.value };
+          break;
         default:
           return;
       }
@@ -129,25 +133,27 @@ class ChooseInsurancePage extends React.Component {
 
   render() {
     let messageAtTop;
-    switch (this.props.shopType) {
-      case 'bikes':
-        messageAtTop = <FormattedMessage id='Buy Insurance for the Bike' />;
-        break;
-      case 'smart-phones':
-        messageAtTop = <FormattedMessage
-          id='Buy Insurance for the Smart Phone' />;
-        break;
-      case 'skis':
-        messageAtTop = <FormattedMessage id='Buy Insurance the Pair of Skis' />;
-        break;
-    }
+    // switch (this.props.shopType) {
+    //   case 'bikes':
+    //     messageAtTop = <FormattedMessage id='Buy Insurance for the Bike' />;
+    //     break;
+    //   case 'smart-phones':
+    //     messageAtTop = <FormattedMessage
+    //       id='Buy Insurance for the Smart Phone' />;
+    //     break;
+    //   case 'skis':
+    //     messageAtTop = <FormattedMessage id='Buy Insurance the Pair of Skis' />;
+    //     break;
+    // }
+
+    messageAtTop = <FormattedMessage id='Record Encounter' />;
 
     let { contractType, contractInfo, dailyPrice, redirectToNext } = this.state;
     let { intl, contractsLoaded, contractTypes } = this.props;
-
+    /**add notes below**/
     if (redirectToNext) {
       return (
-        <Redirect to='/payment' />
+        <Redirect to='/summary' />
       );
     }
 
@@ -222,6 +228,14 @@ class ChooseInsurancePage extends React.Component {
                   <span className='ibm-required'>*</span></label>
                   <span>
                     <input ref='emailField' value={contractInfo.email}
+                      type='text' onChange={this.setContractInfo} />
+                  </span>
+                </p>
+                <p>
+                  <label><FormattedMessage id='Address' />:
+                  <span className='ibm-required'>*</span></label>
+                  <span>
+                    <input ref='addressField' value={contractInfo.address}
                       type='text' onChange={this.setContractInfo} />
                   </span>
                 </p>

@@ -4,17 +4,17 @@ import config from './config';
 import { wrapError } from './utils';
 import { policeClient as client, isReady } from './setup';
 
-export async function listTheftClaims() {
-  if (!isReady()) {
-    return;
-  }
-  try {
-    const theftClaims = await query('theft_claim_ls');
-    return theftClaims;
-  } catch (e) {
-    throw wrapError(`Error getting theft claims ${e.message}`, e);
-  }
-}
+// export async function listTheftClaims() {
+//   if (!isReady()) {
+//     return;
+//   }
+//   try {
+//     const theftClaims = await query('theft_claim_ls');
+//     return theftClaims;
+//   } catch (e) {
+//     throw wrapError(`Error getting theft claims ${e.message}`, e);
+//   }
+// }
 
 export async function processTheftClaim(
   { uuid, contractUuid, isTheft, fileReference }) {

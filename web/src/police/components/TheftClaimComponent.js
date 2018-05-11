@@ -6,57 +6,57 @@ import { FormattedMessage } from 'react-intl';
 
 class TheftClaimComponent extends React.Component {
 
-  static get propTypes() {
-    return {
-      theftClaim: PropTypes.object.isRequired,
-      onProcessedClaim: PropTypes.func.isRequired
-    };
-  }
+  // static get propTypes() {
+  //   return {
+  //     theftClaim: PropTypes.object.isRequired,
+  //     onProcessedClaim: PropTypes.func.isRequired
+  //   };
+  // }
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    this.state = {
-      fileReference: ''
-    };
+  //   this.state = {
+  //     fileReference: ''
+  //   };
 
-    this.confirmClaim = this.confirmClaim.bind(this);
-    this.rejectClaim = this.rejectClaim.bind(this);
-    this.processClaim = this.processClaim.bind(this);
-    this.setFileReference = this.setFileReference.bind(this);
-  }
+  //   this.confirmClaim = this.confirmClaim.bind(this);
+  //   this.rejectClaim = this.rejectClaim.bind(this);
+  //   this.processClaim = this.processClaim.bind(this);
+  //   this.setFileReference = this.setFileReference.bind(this);
+  // }
 
-  setFileReference(e) {
-    const { value } = e.target;
-    this.setState({ fileReference: value.toUpperCase() });
-  }
+  // setFileReference(e) {
+  //   const { value } = e.target;
+  //   this.setState({ fileReference: value.toUpperCase() });
+  // }
 
-  confirmClaim() {
-    this.processClaim(true);
-  }
+  // confirmClaim() {
+  //   this.processClaim(true);
+  // }
 
-  rejectClaim() {
-    this.processClaim(false);
-  }
+  // rejectClaim() {
+  //   this.processClaim(false);
+  // }
 
-  processClaim(isTheft) {
-    const { theftClaim, onProcessedClaim } = this.props;
-    const { fileReference } = this.state;
-    if (typeof onProcessedClaim === 'function') {
-      setTimeout(() => {
-        onProcessedClaim({
-          uuid: theftClaim.uuid,
-          contractUuid: theftClaim.contractUuid,
-          isTheft,
-          fileReference
-        });
-      });
-    }
-  }
+  // processClaim(isTheft) {
+  //   const { theftClaim, onProcessedClaim } = this.props;
+  //   const { fileReference } = this.state;
+  //   if (typeof onProcessedClaim === 'function') {
+  //     setTimeout(() => {
+  //       onProcessedClaim({
+  //         uuid: theftClaim.uuid,
+  //         contractUuid: theftClaim.contractUuid,
+  //         isTheft,
+  //         fileReference
+  //       });
+  //     });
+  //   }
+  // }
 
   render() {
-    const { theftClaim } = this.props;
-    const { fileReference } = this.state;
+    // const { theftClaim } = this.props;
+    // const { fileReference } = this.state;
     return (
       <div className='ibm-col-6-2 ibm-col-medium-2-1 ibm-col-small-1-1'>
         <div className='ibm-card ibm-border-gray-50'>

@@ -5,6 +5,9 @@ import { wrapError } from './utils';
 import { shopClient as client, isReady } from './setup';
 import uuidV4 from 'uuid/v4';
 
+// export async function userFind(contract) {
+// }
+
 export async function getContractTypes(shopType) {
   if (!isReady()) {
     return;
@@ -36,6 +39,7 @@ export async function createContract(contract) {
   }
 }
 
+/** add condition to check if user exists **/
 export async function createUser(user) {
   if (!isReady()) {
     return;

@@ -9,29 +9,29 @@ block content
         .ibm-card.insurance-peer
           .ibm-card__content
               a(href='/insurance')
-                h3.ibm-h3 #{ __('Insurance') }
+                h3.ibm-h3 #{ __('Client') }
               p.ibm-ind-link
                 a.ibm-forward-link(href='/insurance/self-service')
-                  | #{ __('Go To The Claim Self-Service') }
-              p.ibm-ind-link
-                a.ibm-forward-link(href='/insurance/claim-processing')
-                  | #{ __('Go To The Claim Processing') }
-              p.ibm-ind-link
-                a.ibm-forward-link(href='/insurance/contract-management')
-                  | #{ __('Go To The Contract Management') }
+                  | #{ __('Go To The Client Encounters') }
+              //- p.ibm-ind-link
+              //-   a.ibm-forward-link(href='/insurance/claim-processing')
+              //-     | #{ __('Go To The Claim Processing') }
+              //- p.ibm-ind-link
+              //-   a.ibm-forward-link(href='/insurance/contract-management')
+              //-     | #{ __('Go To The Contract Management') }
         .ibm-card.shop-peer
           .ibm-card__content
             a(href='/shop')
-              h3.ibm-h3 #{ __('Shop') }
+              h3.ibm-h3 #{ __('Hospital') }
             p.ibm-ind-link
-              a.ibm-forward-link(href='/shop') #{ __('Go To The Shop Peer') }
+              a.ibm-forward-link(href='/shop') #{ __('Go To The Hospital Peer') }
         .ibm-card.police-peer
           .ibm-card__content
             a(href='/police')
-              h3.ibm-h3 #{ __('Police') }
+              h3.ibm-h3 #{ __('Social Service Organization') }
             p.ibm-ind-link
               a.ibm-forward-link(href='/police')
-                | #{ __('Go To The Police Peer') }
+                | #{ __('Go To The Social Service Peer') }
         .ibm-card.repair-shop-peer
           .ibm-card__content
             a(href='/repair-shop')

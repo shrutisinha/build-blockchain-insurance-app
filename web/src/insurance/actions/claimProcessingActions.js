@@ -26,20 +26,20 @@ function loadClaimsSuccess(claims) {
   };
 }
 
-export function processClaim(contractUuid, uuid, status, reimbursable) {
-  return async dispatch => {
-    try {
-      await Api.processClaim(contractUuid, uuid, status, reimbursable);
-      dispatch(processClaimSuccess(contractUuid, uuid));
-    } catch (e) {
-      console.log(e);
-    }
-  };
-}
+// export function processClaim(contractUuid, uuid, status, reimbursable) {
+//   return async dispatch => {
+//     try {
+//       await Api.processClaim(contractUuid, uuid, status, reimbursable);
+//       dispatch(processClaimSuccess(contractUuid, uuid));
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
+// }
 
-function processClaimSuccess(contractUuid, uuid) {
-  return {
-    type: ClaimProcessingActionType.PROCESS_CLAIM_SUCCESS,
-    contractUuid, uuid
-  };
-}
+// function processClaimSuccess(contractUuid, uuid) {
+//   return {
+//     type: ClaimProcessingActionType.PROCESS_CLAIM_SUCCESS,
+//     contractUuid, uuid
+//   };
+// }

@@ -28,18 +28,30 @@ var bcFunctions = map[string]func(shim.ChaincodeStubInterface, []string) pb.Resp
 	"contract_ls":              listContracts,
 	"claim_ls":                 listClaims,
 	"claim_file":               fileClaim,
-	"claim_process":            processClaim,
+	// "claim_process":            processClaim,
 	"user_authenticate":        authUser,
 	"user_get_info":            getUser,
 	// Shop Peer
 	"contract_create": createContract,
 	"user_create":     createUser,
+	// "user_find":	   userFind,
 	// Repair Shop Peer
 	"repair_order_ls":       listRepairOrders,
 	"repair_order_complete": completeRepairOrder,
 	// Police Peer
-	"theft_claim_ls":      listTheftClaims,
+	// "theft_claim_ls":      listTheftClaims,
 	"theft_claim_process": processTheftClaim,
+	// //Hospital Peer
+	// "contract_create":   createContract,
+	// "user_create":       createUser,
+	// "search for client": searchUser,
+	// "add client encounter":,
+	// //Social Service Peer
+	// "search for client":,
+	// "add client encounter":,
+	// //Client Peer
+	// "user_authentication":,
+	// "user_get_info",
 }
 
 // Init callback representing the invocation of a chaincode

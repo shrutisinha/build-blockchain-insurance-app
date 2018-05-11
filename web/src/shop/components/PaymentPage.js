@@ -51,8 +51,9 @@ class PaymentPage extends React.Component {
     }
     this.inTransaction = true;
     const { contractInfo, productInfo, userMgmtActions } = this.props;
-    const { email, firstName, lastName } = contractInfo;
-    const user = { username: email, firstName, lastName };
+    const { email, firstName, lastName, address } = contractInfo;
+    const user = { username: email, firstName, lastName, address };
+    /** take organisation name from ui**/
     const loginInfo = await enterContract(user, contractInfo.uuid, {
       item: {
         id: parseInt(productInfo.index),
@@ -63,10 +64,10 @@ class PaymentPage extends React.Component {
         description: productInfo.description
       },
       startDate: new Date(contractInfo.startDate),
-      endDate: new Date(contractInfo.endDate)
+      organisation: "Hospital"
     });
     userMgmtActions.setUser({
-      firstName, lastName,
+      firstName, lastName, address,
       username: email, password: loginInfo.password
     });
     this.inTransaction = false;
@@ -78,7 +79,8 @@ class PaymentPage extends React.Component {
     const { intl, productInfo, contractInfo } = this.props;
     const { redirectToNext } = this.state;
 
-    const startDate = moment(new Date(contractInfo.startDate));
+    // const startDate = moment(new Date(contractInfo.startDate));
+    const startDate = moment(new Date());
     const endDate = moment(new Date(contractInfo.endDate));
     const dateDiff = moment.duration(endDate.diff(startDate)).asDays();
 

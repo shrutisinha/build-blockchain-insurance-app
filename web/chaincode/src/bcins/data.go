@@ -9,6 +9,27 @@ import (
 	"strings"
 )
 
+// //Person identity
+// type client struct {
+// 	ID		  	  int32    `json:"id"`
+// 	FirstName 	  string   `json:"first_name"`
+// 	LastName  	  string   `json:"last_name"`
+// 	DOB       	  string   `json:"date_of_birth"`
+// 	Address   	  string   `json:"address"`
+// 	Email		  string   `json:"email"`
+// 	Username      string   `json:"username"`
+// 	Password      string   `json:"password"`
+// 	ContractIndex []string `json:"contracts"`
+// }
+
+// type encounter struct {
+// 	ClientID	 int32	   `json:"client_id"`
+// 	Username      string   `json:"username"`
+// 	Date   		 time.Time `json:"date"`
+// 	Organisation string    `json:"organisation"`
+// 	Notes		 string    `json:"notes"`
+// }
+
 // Key consists of prefix + UUID of the contract type
 type contractType struct {
 	ShopType        string  `json:"shop_type"`
@@ -23,11 +44,14 @@ type contractType struct {
 }
 
 // Key consists of prefix + username + UUID of the contract
+/**replace item with notes. This is encounter**/
+/**shift address to user**/
 type contract struct {
 	Username         string    `json:"username"`
-	Item             item      `json:"item"`
+	Notes			 string	   `json:"notes"`
+	// Address			 string	   `json:"address"`
+	Organisation	 string	   `json:"organisation"`
 	StartDate        time.Time `json:"start_date"`
-	EndDate          time.Time `json:"end_date"`
 	Void             bool      `json:"void"`
 	ContractTypeUUID string    `json:"contract_type_uuid"`
 	ClaimIndex       []string  `json:"claim_index,omitempty"`
@@ -126,6 +150,7 @@ type user struct {
 	Password      string   `json:"password"`
 	FirstName     string   `json:"first_name"`
 	LastName      string   `json:"last_name"`
+	Address		  string   `json:"address"`
 	ContractIndex []string `json:"contracts"`
 }
 

@@ -15,17 +15,17 @@ export function getClaims(status) {
   });
 }
 
-export function processClaim(contractUuid, uuid, status, reimbursable) {
-  return fetch('/insurance/api/process-claim', {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    }),
-    body: JSON.stringify({ contractUuid, uuid, status, reimbursable })
-  }).then(async res => {
-    return await res.json();
-  });
-}
+// export function processClaim(contractUuid, uuid, status, reimbursable) {
+//   return fetch('/insurance/api/process-claim', {
+//     method: 'POST',
+//     headers: new Headers({
+//       'Content-Type': 'application/json'
+//     }),
+//     body: JSON.stringify({ contractUuid, uuid, status, reimbursable })
+//   }).then(async res => {
+//     return await res.json();
+//   });
+// }
 
 export function getContractTypes() {
   return fetch('/insurance/api/contract-types', {

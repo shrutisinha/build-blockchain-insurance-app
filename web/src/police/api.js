@@ -2,17 +2,17 @@
 
 import fetch from 'isomorphic-fetch';
 
-export function listTheftClaims() {
-  return fetch('/police/api/claims', {
-    method: 'POST',
-    headers: new Headers({
-      'Content-Type': 'application/json'
-    })
-  }).then(async res => {
-    const claims = await res.json();
-    return claims;
-  });
-}
+// export function listTheftClaims() {
+//   return fetch('/police/api/claims', {
+//     method: 'POST',
+//     headers: new Headers({
+//       'Content-Type': 'application/json'
+//     })
+//   }).then(async res => {
+//     const claims = await res.json();
+//     return claims;
+//   });
+// }
 
 export function processTheftClaim(contractUuid, uuid, isTheft, fileReference) {
   return fetch('/police/api/process-claim', {

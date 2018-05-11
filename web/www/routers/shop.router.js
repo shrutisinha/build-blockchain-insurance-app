@@ -55,19 +55,22 @@ router.post('/api/contract-types', async (req, res) => {
 
 router.post('/api/request-user', async (req, res) => {
   let { user } = req.body;
-  let { firstName, lastName, email } = user || {};
+  let { firstName, lastName, email, address } = user || {};
   if (typeof user === 'object' &&
     typeof firstName === 'string' &&
     typeof lastName === 'string' &&
-    typeof email === 'string') {
+    typeof email === 'string' &&
+    typeof address === 'string') {
 
     let passwordProposal = generatePassword();
     try {
+      /**add address**/
       let responseUser = await ShopPeer.createUser({
         username: email,
         firstName: firstName,
         lastName: lastName,
-        password: passwordProposal
+        password: passwordProposal,
+        address: address,
       });
       res.json(responseUser || { username: email, password: passwordProposal });
     } catch (e) {
@@ -85,17 +88,19 @@ router.post('/api/enter-contract', async (req, res) => {
     typeof contractTypeUuid === 'string' &&
     typeof additionalInfo === 'object') {
     try {
-      let { username, firstName, lastName } = user;
+      let { username, firstName, lastName, address } = user;
       const passwordProposal = generatePassword();
+      /**address comes from user**/
       let loginInfo = await ShopPeer.createContract({
         contractTypeUuid,
         username,
         password: passwordProposal,
         firstName,
         lastName,
-        item: additionalInfo.item,
+        address,
         startDate: additionalInfo.startDate,
-        endDate: additionalInfo.endDate
+        notes: additionalInfo.notes,
+        organisation: additionalInfo.organisation
       });
       res.json({ success: 'Contract signed.', loginInfo });
     } catch (e) {

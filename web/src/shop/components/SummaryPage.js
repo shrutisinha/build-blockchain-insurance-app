@@ -33,7 +33,7 @@ class SummaryPage extends React.Component {
         <div className='ibm-columns'>
           <div className='ibm-col-2-1 ibm-col-medium-5-3 ibm-col-small-1-1'>
             <div>
-              <FormattedMessage id='Transaction completed.' />
+              <FormattedMessage id='Authentication credentials.' />
             </div>
             <div>
               <FormattedMessage id='Username' />: {username}
